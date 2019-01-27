@@ -16,5 +16,6 @@ telegram:
   channelId: -123456
 
 monitoring:
-  interval: 5000
+  interval: 60000
   timeout: 30000
+  port: 9000

@@ -22,6 +22,7 @@ export interface BotConfig {
     monitoring: {
         interval: number;
         timeout: number;
+        port: number;
     };
 }
 
