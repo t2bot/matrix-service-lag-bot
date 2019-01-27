@@ -1,0 +1,14 @@
+matrix:
+  primary:
+    homeserverUrl: "https://t2bot.io"
+    accessToken: "YourTokenHere"
+
+discord:
+  enabled: false
+  botToken: "YourTokenHere"
+  roomId: "!somewhere:example.org"
+  channelId: "YourDiscordChannelId"
+
+monitoring:
+  interval: 5000
+  timeout: 30000
