@@ -13,6 +13,12 @@ export interface BotConfig {
         roomId: string;
         channelId: string;
     };
+    telegram: {
+        enabled: boolean;
+        botToken: string;
+        roomId: string;
+        channelId: number;
+    };
     monitoring: {
         interval: number;
         timeout: number;

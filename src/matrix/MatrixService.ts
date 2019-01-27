@@ -5,7 +5,7 @@ import config from "../config";
 export class MatrixService implements IService {
 
     private bot: MatrixClient;
-    private waiting: {[msgid: string]: () => void} = {};
+    private waiting: { [msgid: string]: () => void } = {};
 
     constructor() {
         this.bot = new MatrixClient(config.matrix.primary.homeserverUrl, config.matrix.primary.accessToken);

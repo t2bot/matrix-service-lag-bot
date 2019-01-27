@@ -9,6 +9,12 @@ discord:
   roomId: "!somewhere:example.org"
   channelId: "YourDiscordChannelId"
 
+telegram:
+  enabled: false
+  botToken: "YourTokenHere"
+  roomId: "!somewhere:example.org"
+  channelId: -123456
+
 monitoring:
   interval: 5000
   timeout: 30000

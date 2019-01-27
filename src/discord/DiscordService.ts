@@ -7,7 +7,7 @@ import config from "../config";
 export class DiscordService implements IService {
 
     private client: Client;
-    private waiting: {[msgid: string]: () => void} = {};
+    private waiting: { [msgid: string]: () => void } = {};
 
     constructor() {
         this.client = new Discord.Client();
@@ -29,7 +29,7 @@ export class DiscordService implements IService {
     }
 
     public sendMessage(targetReference: any, content: string): Promise<any> {
-        const chan = <TextChannel>this.client.channels.get(config.discord.channelId);
+        const chan = <TextChannel>this.client.channels.get(targetReference);
         return chan.send(content);
     }
 
