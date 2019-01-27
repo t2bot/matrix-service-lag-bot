@@ -20,7 +20,7 @@ export class ServiceWatcher {
             const now = new Date().getTime();
             await timeout(this.monitoredService.waitForMessage(this.targetRef, val), config.monitoring.timeout);
             const tts = (new Date().getTime()) - now;
-            latencyMetric.labels(this.matrix.name, this.monitoredService.name).observe(tts);
+            latencyMetric.labels(this.matrix.name, this.monitoredService.name).observe(tts / 1000.0);
             LogService.info("ServiceWatcher", `${this.matrix.name}->${this.monitoredService.name}: ${tts}ms`);
         } catch (e) {
             if (e instanceof TimeoutError) {
@@ -40,7 +40,7 @@ export class ServiceWatcher {
             const now = new Date().getTime();
             await timeout(this.matrix.waitForMessage(this.targetRef, val), config.monitoring.timeout);
             const tts = (new Date().getTime()) - now;
-            latencyMetric.labels(this.monitoredService.name, this.matrix.name).observe(tts);
+            latencyMetric.labels(this.monitoredService.name, this.matrix.name).observe(tts / 1000.0);
             LogService.info("ServiceWatcher", `${this.monitoredService.name}->${this.matrix.name}: ${tts}ms`);
         } catch (e) {
             if (e instanceof TimeoutError) {
