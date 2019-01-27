@@ -3,7 +3,7 @@ import * as express from "express";
 import config from "./config";
 import { LogService } from "matrix-bot-sdk";
 
-export const latencyMetric = new client.Summary({
+export const latencyMetric = new client.Histogram({
     name: 't2b_service_latency',
     help: 'Service latency',
     labelNames: ['from', 'to'],
