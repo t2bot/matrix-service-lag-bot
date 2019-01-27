@@ -5,6 +5,7 @@ RUN cd /tmp/src && npm install && npm run build
 
 FROM node:alpine
 ENV NODE_ENV=production
+ENV NODE_CONFIG_DIR=/data/config
 RUN mkdir -p /bot
 WORKDIR /bot
 COPY --from=BUILD /tmp/src/lib /bot/lib
