@@ -29,7 +29,7 @@ export class MatrixService implements IService {
         return this.bot.sendMessage(targetReference, {msgtype: "m.text", body: content});
     }
 
-    public waitForMessage(targetReference: any, content: string): Promise<any> {
+    public waitForMessage(targetReference: any, content: string): Promise<void> {
         return new Promise((resolve, _) => {
             this.waiting[content] = resolve;
         });

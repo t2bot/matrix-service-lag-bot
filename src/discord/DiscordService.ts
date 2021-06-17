@@ -33,7 +33,7 @@ export class DiscordService implements IService {
         return chan.send(content);
     }
 
-    public waitForMessage(targetReference: any, content: string): Promise<any> {
+    public waitForMessage(targetReference: any, content: string): Promise<void> {
         return new Promise((resolve, _) => {
             this.waiting[content] = resolve;
         });
