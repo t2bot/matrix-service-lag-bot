@@ -20,7 +20,7 @@ export class IRCService implements IService {
         this.client.connect(5, () => {
             LogService.info("IRCService", "Bot connected");
             this.client.join(config.irc.channel).then(() => {
-                LogService.info("IRCService", `Bot joined to ${config.irc.channel}`);
+                LogService.info("IRCService", `Bot  joined to ${config.irc.channel}`);
             });
         });
     }
@@ -41,7 +41,7 @@ export class IRCService implements IService {
     }
 
     public async sendMessage(targetReference: any, content: string): Promise<void> {
-        await this.client.send(content);
+        await this.client.say(config.irc.channel, content);
     }
 
     public waitForMessage(targetReference: any, content: string): Promise<void> {
