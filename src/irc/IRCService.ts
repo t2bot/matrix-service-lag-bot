@@ -20,7 +20,7 @@ export class IRCService implements IService {
         this.client.connect(5, () => {
             LogService.info("IRCService", "Bot connected");
             this.client.join(config.irc.channel).then(() => {
-                LogService.info("IRCService", `Bot  joined to ${config.irc.channel}`);
+                LogService.info("IRCService", `Bot joined to ${config.irc.channel}`);
             });
         });
     }
