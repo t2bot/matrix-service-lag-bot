@@ -32,7 +32,7 @@ export class TelegramService implements IService {
         return this.bot.telegram.sendMessage(targetReference, content);
     }
 
-    public waitForMessage(targetReference: any, content: string): Promise<any> {
+    public waitForMessage(targetReference: any, content: string): Promise<void> {
         return new Promise((resolve, _) => {
             this.waiting[content] = resolve;
         });

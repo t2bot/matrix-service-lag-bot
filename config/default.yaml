@@ -15,6 +15,15 @@ telegram:
   roomId: "!somewhere:example.org"
   channelId: -123456
 
+irc:
+  enabled: false
+  host: "irc.libera.chat"
+  port: 6697
+  ssl: true
+  nickname: "t2pingbot"
+  roomId: "!somewhere:example.org"
+  channel: "#t2pingbot" 
+
 monitoring:
   interval: 60000
   timeout: 30000

@@ -24,6 +24,15 @@ export interface BotConfig {
         timeout: number;
         port: number;
     };
+    irc: {
+        enabled: boolean;
+        roomId: string;
+        host: string;
+        port: number;
+        ssl: boolean;
+        nick: string;
+        channel: string;
+    };
 }
 
 export default <BotConfig>config;
