@@ -25,7 +25,7 @@ export const errorsMetric = new client.Gauge({
 const app = express();
 app.get("/metrics", (req, res) => {
     res.set('Content-Type', client.register.contentType);
-    res.end(client.register.metrics());
+    res.send(client.register.metrics());
 });
 
 LogService.info("metrics", "Metrics listening on port " + config.monitoring.port + " at /metrics");

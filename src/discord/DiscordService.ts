@@ -32,7 +32,9 @@ export class DiscordService implements IService {
 
     public sendMessage(targetReference: any, content: string): Promise<any> {
         return this.client.channels.fetch(targetReference).then(chan => {
-            if (chan) return (<TextChannel>chan).send(content);
+            if (chan) return (<TextChannel>chan).send({
+                content: content,
+            });
         });
     }
 
