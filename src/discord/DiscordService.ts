@@ -10,7 +10,9 @@ export class DiscordService implements IService {
     private waiting: { [msgid: string]: () => void } = {};
 
     constructor() {
-        this.client = new Discord.Client();
+        this.client = new Discord.Client({
+            intents: "GUILD_MESSAGES",
+        });
         this.client.on('ready', () => LogService.info("DiscordService", "Bot started!"));
         this.client.on('message', this.onMessage.bind(this));
         this.client.login(config.discord.botToken).then(() => LogService.info("DiscordService", "Bot logged in"));
@@ -29,8 +31,9 @@ export class DiscordService implements IService {
     }
 
     public sendMessage(targetReference: any, content: string): Promise<any> {
-        const chan = <TextChannel>this.client.channels.get(targetReference);
-        return chan.send(content);
+        return this.client.channels.fetch(targetReference).then(chan => {
+            if (chan) return (<TextChannel>chan).send(content);
+        });
     }
 
     public waitForMessage(targetReference: any, content: string): Promise<void> {

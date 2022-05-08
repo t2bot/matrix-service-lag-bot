@@ -20,9 +20,9 @@ irc:
   host: "irc.libera.chat"
   port: 6697
   ssl: true
-  nickname: "t2pingbot"
+  nick: "t2pingbot"
   roomId: "!somewhere:example.org"
-  channel: "#t2pingbot" 
+  channel: "#t2pingbot"
 
 monitoring:
   interval: 60000
