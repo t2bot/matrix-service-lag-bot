@@ -3,7 +3,7 @@ import { IService } from "./IService";
 import config from "./config";
 import { timeout, TimeoutError } from 'promise-timeout';
 import { LogService } from "matrix-bot-sdk";
-import * as uuidv4 from "uuid/v4";
+import * as uuidv4 from "uuid/dist/v4";
 import { errorsMetric, latencyMetric, timeoutsMetric } from "./metrics";
 
 export class ServiceWatcher {
