@@ -12,23 +12,25 @@ export class ServiceWatcher {
     }
 
     private async checkLag() {
-        // Matrix -> Remote
-        LogService.info("ServiceWatcher", `Testing ${this.matrix.name}->${this.monitoredService.name}`);
-        try {
-            const val = uuidv4();
-            await this.matrix.sendMessage(this.roomId, val);
-            const now = new Date().getTime();
-            await timeout(this.monitoredService.waitForMessage(this.targetRef, val), config.monitoring.timeout);
-            const tts = (new Date().getTime()) - now;
-            latencyMetric.labels(this.matrix.name, this.monitoredService.name).observe(tts / 1000.0);
-            LogService.info("ServiceWatcher", `${this.matrix.name}->${this.monitoredService.name}: ${tts}ms`);
-        } catch (e) {
-            if (e instanceof TimeoutError) {
-                LogService.warn("ServiceWatcher", `Timeout: ${this.matrix.name}->${this.monitoredService.name}`);
-                timeoutsMetric.labels(this.matrix.name, this.monitoredService.name).inc();
-            } else {
-                LogService.error("ServiceWatcher", `Failure: ${this.matrix.name}->${this.monitoredService.name}`, e);
-                errorsMetric.labels(this.matrix.name, this.monitoredService.name).inc();
+        if (!this.monitoredService.oneWay) {
+            // Matrix -> Remote
+            LogService.info("ServiceWatcher", `Testing ${this.matrix.name}->${this.monitoredService.name}`);
+            try {
+                const val = uuidv4();
+                await this.matrix.sendMessage(this.roomId, val);
+                const now = new Date().getTime();
+                await timeout(this.monitoredService.waitForMessage(this.targetRef, val), config.monitoring.timeout);
+                const tts = (new Date().getTime()) - now;
+                latencyMetric.labels(this.matrix.name, this.monitoredService.name).observe(tts / 1000.0);
+                LogService.info("ServiceWatcher", `${this.matrix.name}->${this.monitoredService.name}: ${tts}ms`);
+            } catch (e) {
+                if (e instanceof TimeoutError) {
+                    LogService.warn("ServiceWatcher", `Timeout: ${this.matrix.name}->${this.monitoredService.name}`);
+                    timeoutsMetric.labels(this.matrix.name, this.monitoredService.name).inc();
+                } else {
+                    LogService.error("ServiceWatcher", `Failure: ${this.matrix.name}->${this.monitoredService.name}`, e);
+                    errorsMetric.labels(this.matrix.name, this.monitoredService.name).inc();
+                }
             }
         }
 
@@ -38,7 +40,11 @@ export class ServiceWatcher {
             const val = uuidv4();
             await this.monitoredService.sendMessage(this.targetRef, val);
             const now = new Date().getTime();
-            await timeout(this.matrix.waitForMessage(this.targetRef, val), config.monitoring.timeout);
+            if (this.monitoredService.oneWay) {
+                await timeout(this.monitoredService.waitForMessage(this.targetRef, val), config.monitoring.timeout);
+            } else {
+                await timeout(this.matrix.waitForMessage(this.targetRef, val), config.monitoring.timeout);
+            }
             const tts = (new Date().getTime()) - now;
             latencyMetric.labels(this.monitoredService.name, this.matrix.name).observe(tts / 1000.0);
             LogService.info("ServiceWatcher", `${this.monitoredService.name}->${this.matrix.name}: ${tts}ms`);

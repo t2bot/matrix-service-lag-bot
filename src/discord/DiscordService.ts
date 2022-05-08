@@ -22,6 +22,10 @@ export class DiscordService implements IService {
         return "discord";
     }
 
+    public get oneWay(): boolean {
+        return false;
+    }
+
     private onMessage(msg: Message) {
         const body = msg.content;
         if (this.waiting[body]) {

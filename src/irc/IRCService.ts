@@ -29,6 +29,10 @@ export class IRCService implements IService {
         return "irc";
     }
 
+    public get oneWay(): boolean {
+        return false;
+    }
+
     private onIRCMessage(from: string, to: string, body: string) {
         if (to !== config.irc.channel) {
             // Only handle messages to the channel we expect.

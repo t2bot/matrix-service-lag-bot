@@ -4,7 +4,7 @@ import config from "../config";
 
 export class MatrixService implements IService {
 
-    private bot: MatrixClient;
+    public readonly bot: MatrixClient;
     private waiting: { [msgid: string]: () => void } = {};
 
     constructor() {
@@ -15,6 +15,10 @@ export class MatrixService implements IService {
 
     public get name(): string {
         return "matrix";
+    }
+
+    public get oneWay(): boolean {
+        return false;
     }
 
     private onMessage(roomId, event) {

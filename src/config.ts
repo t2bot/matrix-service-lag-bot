@@ -33,6 +33,15 @@ export interface BotConfig {
         nick: string;
         channel: string;
     };
+    bots: {
+        enabled: boolean;
+        targets: {
+            mxid: string;
+            command: string;
+            roomId: string;
+            respRegex: string;
+        }[];
+    };
 }
 
 export default <BotConfig>config;

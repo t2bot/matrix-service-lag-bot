@@ -18,6 +18,10 @@ export class TelegramService implements IService {
         return "telegram";
     }
 
+    public get oneWay(): boolean {
+        return false;
+    }
+
     private onMessage(context: ContextMessageUpdate) {
         if (context.message!.chat!.id !== config.telegram.channelId) return;
 
