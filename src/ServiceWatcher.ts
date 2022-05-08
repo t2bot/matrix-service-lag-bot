@@ -9,6 +9,9 @@ import { errorsMetric, latencyMetric, timeoutsMetric } from "./metrics";
 export class ServiceWatcher {
     constructor(private matrix: MatrixService, private monitoredService: IService, private roomId: string, private targetRef: any) {
         setInterval(this.checkLag.bind(this), config.monitoring.interval);
+
+        // noinspection JSIgnoredPromiseFromCall
+        matrix.bot.joinRoom(roomId);
     }
 
     private async checkLag() {
